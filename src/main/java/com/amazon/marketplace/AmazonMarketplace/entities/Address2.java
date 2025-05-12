@@ -12,20 +12,20 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="addresses")
+@Table(name="addresses2")
 @Entity
-public class Address {
+public class Address2 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="user_id", nullable = false)
-    private int userId;
+//    @Column(name="user_id", nullable = false)
+//    private int userId;
 
-//    @OneToOne
-//    @MapsId
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
+    private User2 user;
 
     @Column(name="street", nullable = false)
     private String street;

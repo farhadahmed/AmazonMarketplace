@@ -2,6 +2,7 @@ package com.amazon.marketplace.AmazonMarketplace.services.impl;
 
 import com.amazon.marketplace.AmazonMarketplace.dtos.AddressDto;
 import com.amazon.marketplace.AmazonMarketplace.entities.Address;
+import com.amazon.marketplace.AmazonMarketplace.entities.User;
 import com.amazon.marketplace.AmazonMarketplace.mappers.AddressMapper;
 import com.amazon.marketplace.AmazonMarketplace.repositories.AddressRepository;
 import com.amazon.marketplace.AmazonMarketplace.repositories.UserRepository;
@@ -22,11 +23,33 @@ public class AddressServiceImpl implements AddressService {
     private UserRepository userRepository;
 
     @Override
-    public AddressDto createAddress(AddressDto addressDto, int userId) {
-        Address address = addressMapper.mapToAddress(addressDto);
-        Address savedAddress = addressRepository.save(address);
-        return null;
+    public AddressDto createAddress(AddressDto addressDto) {
+        if (userRepository.existsById(addressDto.getUserId())) {
+            Address address = addressMapper.mapToAddress(addressDto);
+            Address savedAddress = addressRepository.save(address);
+            return addressMapper.mapToAddressDto(savedAddress);
+        }
+
+        throw new RuntimeException("User not found with ID: " + addressDto.getUserId());
     }
+
+//    public AddressDto createAddress2(AddressDto addressDto, int userId) {
+//        // Step 1: Find the User
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+//
+//        // Step 2: Map DTO to Address and assign the User
+//        Address address = addressMapper.mapToAddress(addressDto);
+//        address.setUser(user);           // Required for @MapsId
+//        address.setId(user.getId());     // Optional but reinforces the link
+//        address.setCreatedAt(addressDto.getCreatedAt());
+//        address.setUpdatedAt(addressDto.getUpdatedAt());
+//
+//        // Step 3: Save and map back to DTO
+//        Address savedAddress = addressRepository.save(address);
+//        return addressMapper.mapToAddressDto(savedAddress);
+//    }
+
 
     @Override
     public AddressDto getAddressById(int id) {

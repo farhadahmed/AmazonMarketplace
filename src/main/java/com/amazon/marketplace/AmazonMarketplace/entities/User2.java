@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="users")
+@Table(name="users2")
 @Entity
-public class User {
+public class User2 {
 
     public enum Role {
         BUYER,
@@ -40,12 +40,13 @@ public class User {
     private Role role = Role.BUYER;
     @Column(name="profile_picture_url", length = 255)
     private String profilePictureUrl;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    Address2 address;
+
     @Column(name="created_at")
     private LocalDateTime createdAt;
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
-
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    @PrimaryKeyJoinColumn
-//    Address address;
 }

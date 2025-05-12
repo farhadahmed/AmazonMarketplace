@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserDto2 {
     private int id;
     private String firstName;
     private String lastName;
@@ -20,5 +20,5 @@ public class UserDto {
     private String profilePictureUrl;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
-//    private AddressDto addressDto;
+    private AddressDto addressDto;
 }

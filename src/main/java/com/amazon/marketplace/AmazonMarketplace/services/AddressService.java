@@ -5,7 +5,7 @@ import com.amazon.marketplace.AmazonMarketplace.dtos.AddressDto;
 import java.util.List;
 
 public interface AddressService {
-    AddressDto createAddress(AddressDto addressDto, int userId);
+    AddressDto createAddress(AddressDto addressDto);
     AddressDto getAddressById(int id);
     AddressDto getAddressByUserId(int userId);
     List<AddressDto> getAllAddresses();
