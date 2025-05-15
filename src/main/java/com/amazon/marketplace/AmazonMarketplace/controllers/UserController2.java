@@ -24,26 +24,26 @@ public class UserController2 {
         return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.CREATED);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<UserDto> getUserById(@PathVariable int id) {
-//        UserDto userDto = userService.getUserById(id);
-//        return ResponseEntity.ok(userDto);
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity<List<UserDto>> getAllUsers() {
-//        List<UserDto> userDtos = userService.getAllUsers();
-//        return ResponseEntity.ok(userDtos);
-//    }
-//
-//    @PutMapping("{id}")
-//    public ResponseEntity<UserDto> updateUserById(@PathVariable int id, @RequestBody UserDto userDto) {
-//        userDto.setUpdatedAt(LocalDateTime.now());
-//        UserDto updatedUserDto = userService.updateUserById(id, userDto);
-//        return ResponseEntity.ok(updatedUserDto);
-//
-//    }
-//
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto2> getUserById(@PathVariable int id) {
+        UserDto2 userDto = userService.getUserById(id);
+        return ResponseEntity.ok(userDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDto2>> getAllUsers() {
+        List<UserDto2> userDtos = userService.getAllUsers();
+        return ResponseEntity.ok(userDtos);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto2> updateUserById(@PathVariable int id, @RequestBody UserDto2 userDto) {
+        userDto.setUpdatedAt(LocalDateTime.now());
+        UserDto2 updatedUserDto = userService.updateUserById(id, userDto);
+        return ResponseEntity.ok(updatedUserDto);
+
+    }
+
 //    @DeleteMapping("{id}")
 //    public ResponseEntity<String> deleteUserById(@PathVariable int id) {
 //        String response = userService.deleteUserById(id);

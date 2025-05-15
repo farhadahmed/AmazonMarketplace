@@ -49,56 +49,53 @@ public class UserServiceImpl2 {
     }
 
 
-//    public UserDto getUserById(int id) {
-//        User user = userRepository.
-//                findById(id).
-//                orElseThrow( () -> new RuntimeException("User of this ID does not exist") );
-//
-//        return userMapper.mapToUserDto(user);
-//    }
+    public UserDto2 getUserById(int id) {
+        User2 user = userRepository.
+                findById(id).
+                orElseThrow( () -> new RuntimeException("User of this ID does not exist") );
+
+        return userMapper.mapToUserDto(user);
+    }
 
 
-//    public List<UserDto> getAllUsers() {
-//        /*
-//            1. Retrieve JPA users from the database and add them to a List
-//            2. Convert each object in the JPA list to a DTO object
-//            3. Return the list of DTO objects
-//         */
-//
-//        List<User> users = userRepository.findAll();
-//        List<UserDto> userDtos = users.stream().map(userMapper::mapToUserDto)
-//                .collect(Collectors.toList());
-//
-//        return userDtos;
-//    }
+    public List<UserDto2> getAllUsers() {
+        return userRepository.findAll().stream().map(userMapper::mapToUserDto)
+                .collect(Collectors.toList());
+    }
 
 
-//    public UserDto updateUserById(int id, UserDto userDto) {
-//        /*
-//            1. Retrieve product by id
-//            2. Use setters to change the properties of user
-//            3. Save the user in the DB with the updated properties.
-//            4. Convert the entity user into a DTO object
-//            5. Return the DTO object to the Controller
-//         */
-//
-//        // Step 1.
-//        User user = userRepository.
-//                findById(id).
-//                orElseThrow( () -> new RuntimeException("User of this ID does not exist") );
-//
-//        // Step 2.
-//        user.setFirstName(userDto.getFirstName());
-//        user.setLastName(userDto.getLastName());
-//        user.setEmail(userDto.getEmail());
-//        user.setPassword(userDto.getPassword());
-//
-//        // Step 3.
-//        User savedUser = userRepository.save(user);
-//
-//        // Step 4 and 5
-//        return userMapper.mapToUserDto(savedUser);
-//    }
+    public UserDto2 updateUserById(int id, UserDto2 userDto) {
+        /*
+            1. Retrieve product by id
+            2. Use setters to change the properties of user
+            3. Save the user in the DB with the updated properties.
+            4. Convert the entity user into a DTO object
+            5. Return the DTO object to the Controller
+         */
+
+        // Step 1.
+        User2 user = userRepository.
+                findById(id).
+                orElseThrow( () -> new RuntimeException("User of this ID does not exist") );
+
+        // Step 2.
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+
+        if (userDto.getAddressDto() != null) {
+            Address2 updatedAddress = addressMapper.mapToAddress(userDto.getAddressDto(), user);
+            user.setAddress(updatedAddress);
+        }
+
+        // Step 3.
+        User2 savedUser = userRepository.save(user);
+
+        // Step 4 and 5
+        return userMapper.mapToUserDto(savedUser);
+    }
 
 
     public String deleteUserById(int id) {
