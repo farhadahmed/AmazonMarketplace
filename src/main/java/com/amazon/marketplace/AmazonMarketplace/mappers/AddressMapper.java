@@ -2,15 +2,17 @@ package com.amazon.marketplace.AmazonMarketplace.mappers;
 
 import com.amazon.marketplace.AmazonMarketplace.dtos.AddressDto;
 import com.amazon.marketplace.AmazonMarketplace.entities.Address;
+import com.amazon.marketplace.AmazonMarketplace.entities.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AddressMapper {
-    public Address mapToAddress(AddressDto addressDto) {
+    public Address mapToAddress(AddressDto addressDto, User user) {
         Address address = new Address();
 
-        address.setId(addressDto.getId());
-        address.setUserId(addressDto.getUserId());
+//        address.setId(addressDto.getId());
+        address.setUser(user);
+//        address.setUserId(addressDto.getUserId());
         address.setStreet(addressDto.getStreet());
         address.setCity(addressDto.getCity());
         address.setState(addressDto.getState());
@@ -26,7 +28,8 @@ public class AddressMapper {
         AddressDto addressDto = new AddressDto();
 
         addressDto.setId(address.getId());
-        addressDto.setUserId(address.getUserId());
+//        addressDto.setUserId(address.getUserId());
+        addressDto.setUserId(address.getUser().getId());
         addressDto.setStreet(address.getStreet());
         addressDto.setCity(address.getCity());
         addressDto.setState(address.getState());

@@ -1,7 +1,7 @@
 package com.amazon.marketplace.AmazonMarketplace.controllers;
 
 import com.amazon.marketplace.AmazonMarketplace.dtos.UserDto;
-import com.amazon.marketplace.AmazonMarketplace.services.UserService;
+import com.amazon.marketplace.AmazonMarketplace.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @PostMapping
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
@@ -34,7 +34,7 @@ public class UserController {
         return ResponseEntity.ok(userDtos);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserDto> updateUserById(@PathVariable int id, @RequestBody UserDto userDto) {
         userDto.setUpdatedAt(LocalDateTime.now());
         UserDto updatedUserDto = userService.updateUserById(id, userDto);

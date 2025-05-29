@@ -4,21 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserDto2 {
+@AllArgsConstructor
+public class ProductDto {
     private int id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String username;
-    private String password;
-    private String role;
-    private String profilePictureUrl;
+    private String name;
+    private String description;
+    private BigDecimal price;
+    private int quantityAvailable;
+    private String imageUrl;
+    private String category;
+    private int sellerId;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
-    private AddressDto addressDto;
 }

@@ -16,16 +16,12 @@ import java.time.LocalDateTime;
 @Entity
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="user_id", nullable = false)
-    private int userId;
-
-//    @OneToOne
-//    @MapsId
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name="street", nullable = false)
     private String street;

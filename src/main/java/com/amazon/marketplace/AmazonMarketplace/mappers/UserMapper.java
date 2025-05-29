@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserMapper {
 
-//    private final AddressMapper addressMapper;
+    private final AddressMapper addressMapper;
 
     public User mapToUser(UserDto userDto) {
         User user = new User();
@@ -50,7 +50,7 @@ public class UserMapper {
         userDto.setCreatedAt(user.getCreatedAt());
         userDto.setUpdatedAt(user.getUpdatedAt());
 
-//        userDto.setAddressDto(addressMapper.mapToAddressDto(user.getAddress()));
+        userDto.setAddressDto(addressMapper.mapToAddressDto(user.getAddress()));
         return userDto;
     }
 }
