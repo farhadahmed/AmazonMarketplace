@@ -1,7 +1,7 @@
 package com.amazon.marketplace.AmazonMarketplace.controllers;
 
 import com.amazon.marketplace.AmazonMarketplace.dtos.ProductDto;
-import com.amazon.marketplace.AmazonMarketplace.services.impl.ProductServiceImpl;
+import com.amazon.marketplace.AmazonMarketplace.services.impl.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     @Autowired
-    private ProductServiceImpl productService;
+    private ProductService productService;
 
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {

@@ -1,5 +1,6 @@
 package com.amazon.marketplace.AmazonMarketplace.services.impl;
 
+import com.amazon.marketplace.AmazonMarketplace.dtos.AddressDto;
 import com.amazon.marketplace.AmazonMarketplace.dtos.UserDto;
 import com.amazon.marketplace.AmazonMarketplace.entities.Address;
 import com.amazon.marketplace.AmazonMarketplace.entities.User;
@@ -10,12 +11,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl {
+public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -81,8 +83,21 @@ public class UserServiceImpl {
         user.setPassword(userDto.getPassword());
 
         if (userDto.getAddressDto() != null) {
-            Address updatedAddress = addressMapper.mapToAddress(userDto.getAddressDto(), user);
-            user.setAddress(updatedAddress);
+            AddressDto addressDto = userDto.getAddressDto();
+            Address existingAddress = user.getAddress();
+
+            if (existingAddress == null) {
+                Address newAddress = addressMapper.mapToAddress(addressDto, user);
+                user.setAddress(newAddress);
+            }
+            else {
+                existingAddress.setStreet(addressDto.getStreet());
+                existingAddress.setCity(addressDto.getCity());
+                existingAddress.setState(addressDto.getState());
+                existingAddress.setPostalCode(addressDto.getPostalCode());
+                existingAddress.setCountry(addressDto.getCountry());
+                existingAddress.setUpdatedAt(LocalDateTime.now());
+            }
         }
 
         // Step 3.

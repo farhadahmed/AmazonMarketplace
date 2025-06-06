@@ -1,7 +1,7 @@
 package com.amazon.marketplace.AmazonMarketplace.controllers;
 
 import com.amazon.marketplace.AmazonMarketplace.dtos.UserDto;
-import com.amazon.marketplace.AmazonMarketplace.services.impl.UserServiceImpl;
+import com.amazon.marketplace.AmazonMarketplace.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @PostMapping
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {

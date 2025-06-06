@@ -1,6 +1,7 @@
 package com.amazon.marketplace.AmazonMarketplace.mappers;
 
 import com.amazon.marketplace.AmazonMarketplace.dtos.UserDto;
+import com.amazon.marketplace.AmazonMarketplace.entities.Address;
 import com.amazon.marketplace.AmazonMarketplace.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,9 +27,14 @@ public class UserMapper {
         }
 
         user.setProfilePictureUrl(userDto.getProfilePictureUrl());
-        user.setCreatedAt(userDto.getCreatedAt());
-        user.setUpdatedAt(userDto.getUpdatedAt());
 
+        // If addressDto is present, map and link it
+        if (userDto.getAddressDto() != null) {
+            Address address = addressMapper.mapToAddress(userDto.getAddressDto(), user);
+            user.setAddress(address);
+        }
+
+        // We no longer set timestamps here — handled by @PrePersist/@PreUpdate
         return user;
     }
 
@@ -50,7 +56,10 @@ public class UserMapper {
         userDto.setCreatedAt(user.getCreatedAt());
         userDto.setUpdatedAt(user.getUpdatedAt());
 
-        userDto.setAddressDto(addressMapper.mapToAddressDto(user.getAddress()));
+        if (user.getAddress() != null) {
+            userDto.setAddressDto(addressMapper.mapToAddressDto(user.getAddress()));
+        }
+
         return userDto;
     }
 }
