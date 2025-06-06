@@ -40,4 +40,43 @@ public class ProductServiceImpl {
                 .map(productMapper::mapToProductDto)
                 .collect(Collectors.toList());
     }
+
+    public List<ProductDto> getProductsBySellerId(int sellerId) {
+        return productRepository.findBySellerId(sellerId)
+                .stream()
+                .map(productMapper::mapToProductDto)
+                .collect(Collectors.toList());
+    }
+
+    public ProductDto updateProductById(int id, ProductDto productDto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // Only allow the seller to update
+        User seller = userRepository.findById(productDto.getSellerId())
+                .orElseThrow(() -> new RuntimeException("Seller not found"));
+
+        if (seller.getRole() != User.Role.SELLER) {
+            throw new RuntimeException("User is not a seller");
+        }
+
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+        product.setQuantityAvailable(productDto.getQuantityAvailable());
+        product.setImageUrl(productDto.getImageUrl());
+        product.setCategory(productDto.getCategory());
+
+        product.setSeller(seller); // Optional, if seller might change
+        Product saved = productRepository.save(product);
+        return productMapper.mapToProductDto(saved);
+    }
+
+    public String deleteProductById(int id) {
+        if (!productRepository.existsById(id)) {
+            return "Product not found";
+        }
+        productRepository.deleteById(id);
+        return "Product deleted successfully";
+    }
 }
