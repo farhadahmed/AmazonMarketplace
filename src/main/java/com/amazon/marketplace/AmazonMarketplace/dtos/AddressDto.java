@@ -17,6 +17,6 @@ public class AddressDto {
     private String state;
     private String postalCode;
     private String country;
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

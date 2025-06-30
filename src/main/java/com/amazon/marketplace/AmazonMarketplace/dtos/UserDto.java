@@ -20,7 +20,5 @@ public class UserDto {
     private String profilePictureUrl;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-//    private LocalDateTime createdAt = LocalDateTime.now();
-//    private LocalDateTime updatedAt = LocalDateTime.now();
     private AddressDto addressDto;
 }
