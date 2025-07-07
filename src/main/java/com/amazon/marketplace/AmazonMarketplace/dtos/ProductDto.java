@@ -19,6 +19,6 @@ public class ProductDto {
     private String imageUrl;
     private String category;
     private int sellerId;
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

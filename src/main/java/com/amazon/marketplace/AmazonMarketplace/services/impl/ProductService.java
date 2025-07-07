@@ -52,12 +52,9 @@ public class ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        // Only allow the seller to update
-        User seller = userRepository.findById(productDto.getSellerId())
-                .orElseThrow(() -> new RuntimeException("Seller not found"));
-
-        if (seller.getRole() != User.Role.SELLER) {
-            throw new RuntimeException("User is not a seller");
+        // Ensure the existing seller matches the provided one
+        if (productDto.getSellerId() != 0 && product.getSeller().getId() != productDto.getSellerId()) {
+            throw new RuntimeException("Seller ID mismatch. You cannot reassign the product to a different seller.");
         }
 
         product.setName(productDto.getName());
@@ -67,7 +64,6 @@ public class ProductService {
         product.setImageUrl(productDto.getImageUrl());
         product.setCategory(productDto.getCategory());
 
-        product.setSeller(seller); // Optional, if seller might change
         Product saved = productRepository.save(product);
         return productMapper.mapToProductDto(saved);
     }

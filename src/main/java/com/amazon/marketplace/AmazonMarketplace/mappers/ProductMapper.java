@@ -17,8 +17,6 @@ public class ProductMapper {
         product.setSeller(seller);
         product.setImageUrl(productDto.getImageUrl());
         product.setCategory(productDto.getCategory());
-        product.setCreatedAt(productDto.getCreatedAt());
-        product.setUpdatedAt(productDto.getUpdatedAt());
         return product;
     }
 
@@ -32,8 +30,8 @@ public class ProductMapper {
         productDto.setSellerId(product.getSeller().getId());
         productDto.setImageUrl(product.getImageUrl());
         productDto.setCategory(product.getCategory());
-        productDto.setCreatedAt(productDto.getCreatedAt());
-        productDto.setUpdatedAt(productDto.getUpdatedAt());
+        productDto.setCreatedAt(product.getCreatedAt());
+        productDto.setUpdatedAt(product.getUpdatedAt());
         return productDto;
     }
 }
