@@ -49,8 +49,13 @@ public class User {
     @PrimaryKeyJoinColumn
     private Address address;
 
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
+
+//    We don't want orphanRemoval = true here because In most production e-commerce apps,
+//    orders are retained for auditing, refunds, legal compliance, etc.
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Order> orders = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
